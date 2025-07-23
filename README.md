@@ -10,6 +10,7 @@ In this project, we will use two tools which are :
 First part will be about to understand these data with the notebook python named "Analyse_exploratoire.ipynb".
 - Analyze the measurements taken
 - Analyze the measurement period
+- Analyze measurements by device (ID) functionnal data
 
 Second part will be about the creation of many models to try to predict the radioactivity in the natural area.
 - Machine Learning 
