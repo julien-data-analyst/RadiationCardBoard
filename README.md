@@ -16,6 +16,7 @@ Second part will be about the creation of many models to try to predict the radi
 - Deep Learning
 
 The last part will be about the creation of a dashboard with Power BI.
+- Automate the data extraction (Use of Flask to do it)
 - A map highlighting the radioactivity measurements taken
 - Bar Graphic to observe the scale of each measurements
 - KPI to detect the atypic measurements (%)
