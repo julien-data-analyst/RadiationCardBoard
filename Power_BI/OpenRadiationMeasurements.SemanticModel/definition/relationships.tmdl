@@ -1,0 +1,40 @@
+relationship 9c3001d1-f542-44aa-b316-cb605aa470c1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FlightInformation.departureTime
+	toColumn: LocalDateTable_4aa0e384-4094-4fca-baef-82e04ace8530.Date
+
+relationship 08265efd-1360-4d5e-8fbb-07bec56e0908
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FlightInformation.arrivalTime
+	toColumn: LocalDateTable_66b1b35f-53d3-4b1f-9a06-600c5780e2e8.Date
+
+relationship AutoDetected_c70ae417-f1a5-48a4-ab0a-bf3eff7cf453
+	fromColumn: RadiationMeasures.deviceUuid
+	toColumn: DeviceRegisterUsed.deviceUuid
+
+relationship AutoDetected_1c16fd20-c32b-48af-9da3-c4288837f260
+	fromColumn: RadiationMeasures.flightId
+	toColumn: FlightInformation.flightId
+
+relationship 620d7fa0-8eea-b826-292a-28066ff57e58
+	fromColumn: RadiationMeasures.apparatusId
+	toColumn: ApparatusMeasuresUsed.apparatusId
+
+relationship d5fc9bdf-2457-4599-b8b5-84a1ce895a01
+	joinOnDateBehavior: datePartOnly
+	fromColumn: RadiationMeasures.startTime
+	toColumn: LocalDateTable_0da5d11d-260f-477d-8b66-ddb2d1d371cc.Date
+
+relationship cc3b3902-93b5-46f0-86b4-2e3bd1e16400
+	joinOnDateBehavior: datePartOnly
+	fromColumn: RadiationMeasures.endTime
+	toColumn: LocalDateTable_570791c1-d0d0-43b2-a2a0-ed0e6393c570.Date
+
+relationship b165095a-5b22-22d0-52e9-37487202972c
+	fromColumn: RadiationMeasures.dateAndTimeOfCreation_DateOnly
+	toColumn: Datum.Date
+
+relationship 738fc924-0a5a-b549-f485-d9e4fc60658e
+	fromColumn: RadiationMeasures.Intervalle
+	toColumn: INTERVALLE_ORDER.Intervalle
+

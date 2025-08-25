@@ -1,0 +1,126 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 358.85713849748885,
+        "y": 91.428571428571431
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 827.14285714285722,
+            "y": 2.8571428571428577
+          },
+          "nodeIndex": "FlightInformation",
+          "nodeLineageTag": "2a1cc611-13f4-4e02-b144-9a0d7ac447c4",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 90.57142857142864,
+            "y": 7.1428571428571423
+          },
+          "nodeIndex": "ApparatusMeasuresUsed",
+          "nodeLineageTag": "adc545c1-60f3-4681-9a5a-3b1f9e7d3841",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 443,
+            "y": 0
+          },
+          "nodeIndex": "DeviceRegisterUsed",
+          "nodeLineageTag": "cd995304-42ee-49b1-8e08-9e99aff535ce",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 557.28571428571422,
+            "y": 608.57142857142867
+          },
+          "nodeIndex": "RadiationMeasures",
+          "nodeLineageTag": "261d4e17-b155-438d-8b9a-859b14a66b00",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1172,
+            "y": 202.78571428571428
+          },
+          "nodeIndex": "Datum",
+          "nodeLineageTag": "041b0597-4c8d-423e-82b3-9cbd1a2d9ba4",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1438.2857142857142,
+            "y": 488.57142857142861
+          },
+          "nodeIndex": "NB_MESURES",
+          "nodeLineageTag": "00ae1b3e-a01d-4cfb-aba0-7d20cc970914",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1437.4285714285711,
+            "y": 271.42857142857144
+          },
+          "nodeIndex": "Mesures",
+          "nodeLineageTag": "00033578-39de-495d-83e4-ebe60aac095c",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 255.9999999999996,
+            "y": 301.4285714285715
+          },
+          "nodeIndex": "INTERVALLE_ORDER",
+          "nodeLineageTag": "511df127-bfc1-43cd-96c6-0b6f69a46422",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Toutes les tables",
+      "zoomValue": 70,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Toutes les tables",
+  "defaultDiagram": "Toutes les tables"
+}

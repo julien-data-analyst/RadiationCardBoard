@@ -1,0 +1,24 @@
+table NB_MESURES
+	lineageTag: 00ae1b3e-a01d-4cfb-aba0-7d20cc970914
+
+	column Option
+		lineageTag: a848870c-ac95-4ff8-8ceb-c80cf6b0b211
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Option]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition NB_MESURES = calculated
+		mode: import
+		source =
+				DATATABLE(
+				    "Option", STRING,
+				    {
+				        {"Mesure"},
+				        {"Nombre"}
+				    }
+				)
+
+	annotation PBI_Id = f33443a66f594b7eac9846a66d667282
+

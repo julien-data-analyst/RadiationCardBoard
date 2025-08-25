@@ -1,0 +1,104 @@
+table FlightInformation
+	lineageTag: 2a1cc611-13f4-4e02-b144-9a0d7ac447c4
+
+	column flightId
+		dataType: int64
+		formatString: 0
+		lineageTag: 40c68a41-33a1-414a-b6f1-b16698ed8b3e
+		summarizeBy: none
+		sourceColumn: flightId
+
+		annotation SummarizationSetBy = Automatic
+
+	column flightNumber
+		dataType: string
+		lineageTag: 87a9916e-0f98-44fb-a5b8-79710fadc4e2
+		summarizeBy: none
+		sourceColumn: flightNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column seatNumber
+		dataType: string
+		lineageTag: 96c86ab6-ebc3-432b-b816-5b3f8972e7cd
+		summarizeBy: none
+		sourceColumn: seatNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column windowSeat
+		dataType: int64
+		formatString: 0
+		lineageTag: ddd4921b-a6bc-4619-85b3-a51b42d072c3
+		summarizeBy: sum
+		sourceColumn: windowSeat
+
+		annotation SummarizationSetBy = Automatic
+
+	column departureTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: dd1ab87f-2633-48b8-a693-4027cb87b9d7
+		summarizeBy: none
+		sourceColumn: departureTime
+
+		variation Variation
+			isDefault
+			relationship: 9c3001d1-f542-44aa-b316-cb605aa470c1
+			defaultHierarchy: LocalDateTable_4aa0e384-4094-4fca-baef-82e04ace8530.'Hiérarchie de dates'
+
+		annotation SummarizationSetBy = Automatic
+
+	column arrivalTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1ed6845c-1601-4cde-b3ab-b6a64e889da2
+		summarizeBy: none
+		sourceColumn: arrivalTime
+
+		variation Variation
+			isDefault
+			relationship: 08265efd-1360-4d5e-8fbb-07bec56e0908
+			defaultHierarchy: LocalDateTable_66b1b35f-53d3-4b1f-9a06-600c5780e2e8.'Hiérarchie de dates'
+
+		annotation SummarizationSetBy = Automatic
+
+	column airportOrigin
+		dataType: string
+		lineageTag: 63cfd84c-21d8-4ead-89c5-d7fb42b46fa2
+		summarizeBy: none
+		sourceColumn: airportOrigin
+
+		annotation SummarizationSetBy = Automatic
+
+	column airportDestination
+		dataType: string
+		lineageTag: 9995ecb1-4463-4551-8e20-2a707530346f
+		summarizeBy: none
+		sourceColumn: airportDestination
+
+		annotation SummarizationSetBy = Automatic
+
+	column aircraftType
+		dataType: string
+		lineageTag: d6beb05e-4858-47c1-809f-0a8dfb2e3f75
+		summarizeBy: none
+		sourceColumn: aircraftType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FlightInformation = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromColumns({Lines.FromBinary(Web.Contents("https://openradiationextract.onrender.com/api/data/flight"), null, null)}),
+				    #"Colonne transformée" = Table.TransformColumns(Source, {"Column1", Json.Document}),
+				    #"Column1 développé" = Table.ExpandRecordColumn(#"Colonne transformée", "Column1", {"flightId", "flightNumber", "seatNumber", "windowSeat", "departureTime", "arrivalTime", "airportOrigin", "airportDestination", "aircraftType"}, {"flightId", "flightNumber", "seatNumber", "windowSeat", "departureTime", "arrivalTime", "airportOrigin", "airportDestination", "aircraftType"}),
+				    #"Type modifié" = Table.TransformColumnTypes(#"Column1 développé",{{"flightId", Int64.Type}, {"flightNumber", type text}, {"seatNumber", type text}, {"windowSeat", Int64.Type}, {"departureTime", type datetime}, {"arrivalTime", type datetime}, {"airportOrigin", type text}, {"airportDestination", type text}, {"aircraftType", type text}})
+				in
+				    #"Type modifié"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

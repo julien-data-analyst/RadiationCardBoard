@@ -1,0 +1,37 @@
+model Model
+	culture: fr-FR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: fr-FR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+/// Différentes fct créés pour aider à la préparation des données.
+queryGroup FCT_M
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation PBI_QueryOrder = ["ApparatusMeasuresUsed","DeviceRegisterUsed","FlightInformation","RadiationMeasures","Separation_heure_date"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.145.1105.0 (25.07)+decbc46fce458c5b8d5109d6f32a743f2ac949c8
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table ApparatusMeasuresUsed
+ref table DeviceRegisterUsed
+ref table FlightInformation
+ref table DateTableTemplate_d7d7ff71-75b4-43b5-a90f-28e42ee649a1
+ref table LocalDateTable_4aa0e384-4094-4fca-baef-82e04ace8530
+ref table LocalDateTable_66b1b35f-53d3-4b1f-9a06-600c5780e2e8
+ref table RadiationMeasures
+ref table Datum
+ref table LocalDateTable_0da5d11d-260f-477d-8b66-ddb2d1d371cc
+ref table LocalDateTable_570791c1-d0d0-43b2-a2a0-ed0e6393c570
+ref table NB_MESURES
+ref table Mesures
+ref table INTERVALLE_ORDER
+
+ref cultureInfo fr-FR
+

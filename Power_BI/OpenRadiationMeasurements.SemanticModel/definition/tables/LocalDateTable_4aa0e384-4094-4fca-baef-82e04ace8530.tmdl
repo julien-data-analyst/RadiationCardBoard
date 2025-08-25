@@ -1,0 +1,111 @@
+table LocalDateTable_4aa0e384-4094-4fca-baef-82e04ace8530
+	isHidden
+	showAsVariationsOnly
+	lineageTag: acf1ecc0-e1b7-4ba4-9994-e18ac9fa8207
+
+	column Date
+		dataType: dateTime
+		isHidden
+		lineageTag: c09e2c52-11fa-4fc9-9cd2-940a907fdbf0
+		dataCategory: PaddedDateTableDates
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = User
+
+	column Année = YEAR([Date])
+		dataType: int64
+		isHidden
+		lineageTag: fd614fed-c149-4888-acc3-4db94bab16b2
+		dataCategory: Years
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Year
+
+	column NoMois = MONTH([Date])
+		dataType: int64
+		isHidden
+		lineageTag: f6e49b2c-2ebb-4c2c-bda2-1d18e2fb11d9
+		dataCategory: MonthOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = MonthNumber
+
+	column Mois = FORMAT([Date], "MMMM")
+		dataType: string
+		isHidden
+		lineageTag: c7f6fbf7-1e17-4374-901d-0b71d143aaee
+		dataCategory: Months
+		summarizeBy: none
+		sortByColumn: NoMois
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Month
+
+	column NoTrimestre = INT(([NoMois] + 2) / 3)
+		dataType: int64
+		isHidden
+		lineageTag: 3cc1f4cd-b5bd-4b59-97b2-255ba4330a55
+		dataCategory: QuarterOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = QuarterNumber
+
+	column Trimestre = "Qtr " & [NoTrimestre]
+		dataType: string
+		isHidden
+		lineageTag: c57f5856-1e36-40d9-976d-aea3d8318984
+		dataCategory: Quarters
+		summarizeBy: none
+		sortByColumn: NoTrimestre
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Quarter
+
+	column Jour = DAY([Date])
+		dataType: int64
+		isHidden
+		lineageTag: eb738400-1626-49bc-a74f-35a25add077b
+		dataCategory: DayOfMonth
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Day
+
+	hierarchy 'Hiérarchie de dates'
+		lineageTag: 37d2dc96-01d4-4a01-afc7-ae1160a0d1c0
+
+		level Année
+			lineageTag: 70e99cf6-05b3-4147-a4b8-0cb0bd4257e7
+			column: Année
+
+		level Trimestre
+			lineageTag: a0f33a6c-9021-4ba5-b8d0-ce9813512b36
+			column: Trimestre
+
+		level Mois
+			lineageTag: c6a82ad3-6da6-4ebf-912d-b0225d645aec
+			column: Mois
+
+		level Jour
+			lineageTag: cbdfe806-f761-4bfc-baea-5e02f6778a05
+			column: Jour
+
+		annotation TemplateId = DateHierarchy
+
+	partition LocalDateTable_4aa0e384-4094-4fca-baef-82e04ace8530 = calculated
+		mode: import
+		source = Calendar(Date(Year(MIN('FlightInformation'[departureTime])), 1, 1), Date(Year(MAX('FlightInformation'[departureTime])), 12, 31))
+
+	annotation __PBI_LocalDateTable = true
+

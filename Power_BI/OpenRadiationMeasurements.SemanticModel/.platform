@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "OpenRadiationMeasurements"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f760bc1e-620f-44d8-bd2e-774e783d6cfa"
+  }
+}

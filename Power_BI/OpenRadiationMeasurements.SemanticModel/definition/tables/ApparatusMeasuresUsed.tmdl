@@ -1,0 +1,50 @@
+table ApparatusMeasuresUsed
+	lineageTag: adc545c1-60f3-4681-9a5a-3b1f9e7d3841
+
+	column apparatusId
+		dataType: string
+		lineageTag: 1ff890e9-450c-4480-99fd-73b104c6bf26
+		summarizeBy: none
+		sourceColumn: apparatusId
+
+		annotation SummarizationSetBy = Automatic
+
+	column apparatusVersion
+		dataType: string
+		lineageTag: 421a6115-e935-48f9-b71f-b56e60dc6c5a
+		summarizeBy: none
+		sourceColumn: apparatusVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column apparatusSensorType
+		dataType: string
+		lineageTag: 0d595940-b86b-4e9d-8da1-38b5dc11327e
+		summarizeBy: none
+		sourceColumn: apparatusSensorType
+
+		annotation SummarizationSetBy = Automatic
+
+	column apparatusTubeType
+		dataType: string
+		lineageTag: 9aef65a3-a14b-4fe2-805c-8dd5369a8d13
+		summarizeBy: none
+		sourceColumn: apparatusTubeType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ApparatusMeasuresUsed = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromColumns({Lines.FromBinary(Web.Contents("https://openradiationextract.onrender.com/api/data/apparatus"), null, null)}),
+				    #"Colonne transformée" = Table.TransformColumns(Source, {"Column1", Json.Document}),
+				    #"Column1 développé" = Table.ExpandRecordColumn(#"Colonne transformée", "Column1", {"apparatusId", "apparatusVersion", "apparatusSensorType", "apparatusTubeType"}, {"apparatusId", "apparatusVersion", "apparatusSensorType", "apparatusTubeType"}),
+				    #"Type modifié" = Table.TransformColumnTypes(#"Column1 développé",{{"apparatusId", type text}, {"apparatusVersion", type text}, {"apparatusSensorType", type text}, {"apparatusTubeType", type text}})
+				in
+				    #"Type modifié"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

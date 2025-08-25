@@ -1,0 +1,50 @@
+table DeviceRegisterUsed
+	lineageTag: cd995304-42ee-49b1-8e08-9e99aff535ce
+
+	column deviceUuid
+		dataType: string
+		lineageTag: ffd5a271-8ac5-466b-9d5f-3caf9ad3ffcb
+		summarizeBy: none
+		sourceColumn: deviceUuid
+
+		annotation SummarizationSetBy = Automatic
+
+	column devicePlatform
+		dataType: string
+		lineageTag: 89d34c17-fc6c-47bf-a46b-ad987b070eb4
+		summarizeBy: none
+		sourceColumn: devicePlatform
+
+		annotation SummarizationSetBy = Automatic
+
+	column deviceVersion
+		dataType: string
+		lineageTag: 9c39df9f-2e06-4256-918a-38c022b56497
+		summarizeBy: none
+		sourceColumn: deviceVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column deviceModel
+		dataType: string
+		lineageTag: 84c526a0-6d08-4180-8867-b1a51a45e2e0
+		summarizeBy: none
+		sourceColumn: deviceModel
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DeviceRegisterUsed = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromColumns({Lines.FromBinary(Web.Contents("https://openradiationextract.onrender.com/api/data/devices"), null, null)}),
+				    #"Colonne transformée" = Table.TransformColumns(Source, {"Column1", Json.Document}),
+				    #"Column1 développé" = Table.ExpandRecordColumn(#"Colonne transformée", "Column1", {"deviceUuid", "devicePlatform", "deviceVersion", "deviceModel"}, {"deviceUuid", "devicePlatform", "deviceVersion", "deviceModel"}),
+				    #"Type modifié" = Table.TransformColumnTypes(#"Column1 développé",{{"deviceUuid", type text}, {"devicePlatform", type text}, {"deviceVersion", type text}, {"deviceModel", type text}})
+				in
+				    #"Type modifié"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -22,5 +22,5 @@ The last part will be about the creation of a dashboard with Power BI.
 - KPI to detect the atypic measurements (%)
 
 For the Power BI Extraction, I created a Flask API which permit to extract the CSV File we need.
-With this app, when I click ont the actualize button from Power BI, it refresh the dataset if it has been created for higher than 24 hours else it reuse the cached file.
+With this app, it actualizes the Data every morning.
 The only thing else to do is to deploy the little app in a server to test it out on Power BI.

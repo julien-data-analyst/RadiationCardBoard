@@ -1,0 +1,156 @@
+table Mesures
+	lineageTag: 00033578-39de-495d-83e4-ebe60aac095c
+
+	measure AUG_BAIS_MESURES =
+			
+			VAR Taux = ([NB_MESURES_N] - [NB_MESURES_N-1]) / [NB_MESURES_N-1]
+			RETURN
+			IF(
+			    Taux > 0,
+			    "+" & FORMAT(Taux, "0.00%"),
+			    FORMAT(Taux, "0.00%")
+			)
+		lineageTag: e4b75079-30cf-4886-9adc-ffd49576358e
+
+	measure Moyenne_Mesures_Rad = ROUND(AVERAGE(RadiationMeasures[value]), 2)
+		lineageTag: 0aa89c21-5116-4fb7-b0aa-01d165b632dc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure NB_MESURES_N =
+			
+			
+			// Quelle est la valeur sélectionnée par l'utilisateur
+			VAR selection = SELECTEDVALUE(NB_MESURES[Option], "Mesure")
+			
+			RETURN
+			CALCULATE(
+			    // Permet de compter le nombre de mesures effectuées ou de calculer la moyenne des mesures
+			    IF(selection = "Nombre", COUNT(RadiationMeasures[reportUuid]), AVERAGE(RadiationMeasures[value])),
+			    // Permet d'enlever les filtres concernant les années
+			    REMOVEFILTERS(Datum[Annee]),
+			    // Permet de filtrer sur l'année en enlevant les filtrages externes (segment, choisir une bulle, etc)
+			    Datum[Annee] = CONVERT(YEAR(TODAY()), STRING)
+			)
+		formatString: 0
+		lineageTag: 97a38347-fa85-401b-b6fa-f6214655f266
+
+	measure NB_MESURES_N-1 =
+			
+			// Quelle est la valeur sélectionnée par l'utilisateur
+			VAR selection = SELECTEDVALUE(NB_MESURES[Option], "Mesure")
+			
+			RETURN
+			CALCULATE(
+			    // Permet de compter le nombre de mesures effectuées
+			    IF(selection = "Nombre", COUNT(RadiationMeasures[reportUuid]), AVERAGE(RadiationMeasures[value])),
+			    // Permet d'enlever les filtres concernant les années
+			    REMOVEFILTERS(Datum[Annee]),
+			    // Permet de filtrer sur l'année en enlevant les filtrages externes (segment, choisir une bulle, etc)
+			    Datum[Annee] = CONVERT(YEAR(TODAY()) - 1, STRING)
+			)
+		formatString: 0
+		lineageTag: 503542a7-61f4-4f5a-ac64-d93f286d9f44
+
+	measure PRCT_MEASUREMENTS = ```
+			
+			DIVIDE(
+			    COUNT(RadiationMeasures[reportUuid]), 
+			    CALCULATE(
+			        COUNT(RadiationMeasures[reportUuid]),
+			        REMOVEFILTERS(RadiationMeasures[measurementEnvironment])
+			    )
+			)
+			    
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 1369ea45-d992-4124-a048-3a73b6c2912b
+
+	measure Titre_Mesure_Nombre = ```
+			
+			VAR selected = SELECTEDVALUE(NB_MESURES[Option], "Mesure")
+			RETURN 
+			IF(selected = "Mesure", "Valeur des mesures obtenues de l'année N et N-1", "Nombre de mesures obtenues de l'année N et N-1") 
+			```
+		lineageTag: c84c48e2-e582-43fc-89ce-7745d45ff94a
+
+	measure FORMAT_NB_MESURES_N = ```
+			
+			VAR choix = SELECTEDVALUE(NB_MESURES[Option], "Mesure")
+			VAR valeur = [NB_MESURES_N]  -- votre mesure existante
+			RETURN
+			IF(
+			    choix = "Nombre",
+			    IF(
+			        valeur >= 1000,
+			        FORMAT(valeur / 1000, "0.0") & " K",  -- divise par 1000 et ajoute "K"
+			        FORMAT(valeur, "0")                     -- sinon juste un entier
+			    ),
+			    -- si c'est "Mesure", afficher avec 2 décimales
+			    FORMAT(valeur, "0.000")
+			)
+			
+			```
+		lineageTag: 7521a32b-9fed-4939-8eeb-dc1152ea95e8
+
+	measure FORMAT_NB_MESURES_N-1 = ```
+			
+			VAR choix = SELECTEDVALUE(NB_MESURES[Option], "Mesure")
+			VAR valeur = [NB_MESURES_N-1]  -- votre mesure existante
+			RETURN
+			IF(
+			    choix = "Nombre",
+			    IF(
+			        valeur >= 1000000,
+			        FORMAT(valeur / 1000000, "0.0") & " M",  -- divise par 1000000 et ajoute "M"
+			        IF(valeur >= 1000, FORMAT(valeur / 1000, "0.0") & " K", -- divise par 1000 et ajoute "K"
+			        FORMAT(valeur, "0"))                     -- sinon juste un entier
+			    ),
+			    -- si c'est "Mesure", afficher avec 2 décimales
+			    FORMAT(valeur, "0.000")
+			)
+			
+			```
+		lineageTag: 7785b315-2c29-493e-905e-45991f3ab69d
+
+	measure PRCT_INTERVALLE_MESURE = ```
+			DIVIDE(
+			    COUNT(RadiationMeasures[reportUuid]), 
+			    CALCULATE(
+			        COUNT(RadiationMeasures[reportUuid]),
+			        ALL(INTERVALLE_ORDER)
+			    )
+			)
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 1e1f12c9-8e3c-4d5b-8b1d-d6aab394ba81
+
+	measure MEDIANE_DUREE_MINUTES = CONVERT(ROUND(MEDIAN(RadiationMeasures[Duree-minutes]), 2), STRING) & " MIN"
+		lineageTag: 77ec3fc1-a1ff-4d00-b31c-1e74e6f0e803
+
+	measure MOYENNE_DUREE = CONVERT(ROUND(AVERAGE(RadiationMeasures[Duree-minutes]), 2), STRING) & " MIN"
+		lineageTag: 5a926beb-8427-4ae6-ba35-e5cd05d96389
+
+	measure Q1_DUREE = CONVERT(ROUND(PERCENTILE.INC(RadiationMeasures[Duree-minutes], 0.25), 2), STRING) & " MIN"
+		lineageTag: e9a3965d-4740-438e-9cc3-f51473834d96
+
+	measure Q3_DUREE = CONVERT(ROUND(PERCENTILE.INC(RadiationMeasures[Duree-minutes], 0.75), 2), STRING) & " MIN"
+		lineageTag: e84daf8b-d3c2-437e-aad0-547664974572
+
+	column Op
+		isHidden
+		lineageTag: 022fdb49-9efb-472b-b5a2-6eaa22ba7b4a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Op]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Mesures = calculated
+		mode: import
+		source =
+				DATATABLE("Op", STRING, {{}}
+				)
+
+	annotation PBI_Id = 9be80268e3e14ecc9283c4aad234aa0a
+

@@ -1,0 +1,110 @@
+table Datum
+	lineageTag: 041b0597-4c8d-423e-82b3-9cbd1a2d9ba4
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: Short Date
+		lineageTag: 822b873e-76ba-4b06-b5ee-e3d0171fb264
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Annee
+		lineageTag: e6eaa048-999a-481f-aae8-79f627be776c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Annee]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		lineageTag: 0553bb14-b326-4045-905e-faf6dcba3460
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Trimestre]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Numero du mois'
+		formatString: 0
+		lineageTag: 91246ab8-8ffe-4882-8b43-0db97bdbfc49
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Numero du mois]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnneeMois
+		lineageTag: dc9b45fd-0785-47df-9095-165660608c79
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [AnneeMois]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nom court du mois'
+		lineageTag: 45f86094-b7b5-4b83-a78b-ba3b2d6f298f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Nom court du mois]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Jour de la semaine'
+		lineageTag: 61f99f26-66c6-48cd-ba60-10e5c48b9880
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Jour de la semaine]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Numero du jour de la semaine'
+		formatString: 0
+		lineageTag: 6f6d9a73-0487-47c3-a35f-f7f1fb7292ee
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Numero du jour de la semaine]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nom du mois avec année'
+		lineageTag: cac2f194-e615-4cd0-8fd5-7eaaa030f51f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Nom du mois avec année]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mois
+		lineageTag: af9a03e3-d75a-48f7-87c1-0e022d2fb266
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mois]
+		sortByColumn: 'Numero du mois'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Datum = calculated
+		mode: import
+		source =
+				
+				VAR DebDate = MIN(RadiationMeasures[dateAndTimeOfCreation_DateOnly])
+				VAR FinDate = MAX(RadiationMeasures[dateAndTimeOfCreation_DateOnly])
+				RETURN
+				ADDCOLUMNS(CALENDAR(DebDate, FinDate),
+				        "Annee", FORMAT([Date], "YYYY"),
+				        "Trimestre", "T"&FORMAT([Date], "Q"),
+				        "Numero du mois", MONTH([Date]),
+				        "Mois", FORMAT([Date], "MMMM"),
+				        "AnneeMois", FORMAT([Date], "YYYYMM"),
+				        "Nom du mois avec année", FORMAT([Date], "MMMM YY"),
+				        "Nom court du mois", FORMAT([Date], "MMM YY"),
+				        "Numero du jour de la semaine", WEEKDAY([Date]),
+				        "Jour de la semaine", FORMAT([Date], "dddd")
+				)
+
+	annotation PBI_Id = 2fb99cc90d1b4ad68f18d1bed3d8add1
+

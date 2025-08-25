@@ -1,0 +1,235 @@
+table RadiationMeasures
+	lineageTag: 261d4e17-b155-438d-8b9a-859b14a66b00
+
+	column apparatusId
+		dataType: string
+		lineageTag: 91f0ebbd-c7bf-4bee-8a92-8310c5228ec7
+		summarizeBy: none
+		sourceColumn: apparatusId
+
+		annotation SummarizationSetBy = Automatic
+
+	column temperature
+		dataType: int64
+		formatString: 0
+		lineageTag: 395ef71e-5483-4bef-95fc-b0135a7d2322
+		summarizeBy: sum
+		sourceColumn: temperature
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: 85c57637-af7a-4f6f-a51c-2fbb6a1cc1e3
+		summarizeBy: average
+		sourceColumn: value
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hitsNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 8cebf5c5-30a3-46db-a90a-a6f07402c633
+		summarizeBy: sum
+		sourceColumn: hitsNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		formatString: 0.00
+		lineageTag: dbeb2651-e215-404a-a067-49219e455b26
+		dataCategory: Latitude
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column longitude
+		dataType: double
+		formatString: 0.00
+		lineageTag: 54b51f37-44f5-480d-836c-52831510aeab
+		dataCategory: Longitude
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column deviceUuid
+		dataType: string
+		lineageTag: fc5ad689-e17b-4722-89ab-633c901b4d02
+		summarizeBy: none
+		sourceColumn: deviceUuid
+
+		annotation SummarizationSetBy = Automatic
+
+	column reportUuid
+		dataType: string
+		lineageTag: a49bffac-99c7-4b42-9ad4-7cef0060b748
+		summarizeBy: none
+		sourceColumn: reportUuid
+
+		annotation SummarizationSetBy = Automatic
+
+	column userId
+		dataType: string
+		lineageTag: a4403594-91c7-470e-82fc-902dbe7b3c7a
+		summarizeBy: none
+		sourceColumn: userId
+
+		annotation SummarizationSetBy = Automatic
+
+	column measurementEnvironment
+		dataType: string
+		lineageTag: 12bc5ad5-528f-46a2-830b-2b26e23cae9e
+		summarizeBy: none
+		sourceColumn: measurementEnvironment
+
+		annotation SummarizationSetBy = Automatic
+
+	column rain
+		dataType: string
+		lineageTag: c88452dc-4462-41c6-9511-b220c11935c3
+		summarizeBy: none
+		sourceColumn: rain
+
+		annotation SummarizationSetBy = Automatic
+
+	column storm
+		dataType: string
+		lineageTag: 5be648d0-6e47-4beb-a692-5f6240c7c149
+		summarizeBy: none
+		sourceColumn: storm
+
+		annotation SummarizationSetBy = Automatic
+
+	column flightId
+		dataType: int64
+		formatString: 0
+		lineageTag: 1aa664e8-92b0-41d1-9e81-f6c14c2e08be
+		summarizeBy: none
+		sourceColumn: flightId
+
+		annotation SummarizationSetBy = Automatic
+
+	column dateAndTimeOfCreation_DateOnly
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 58691477-98e2-4fee-a366-20e1dea69461
+		summarizeBy: none
+		sourceColumn: dateAndTimeOfCreation_DateOnly
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column dateAndTimeOfCreation_TimeOnly
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: a80e6a39-9838-451b-b8f4-327a8108d545
+		summarizeBy: none
+		sourceColumn: dateAndTimeOfCreation_TimeOnly
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column startTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 81ad6e9c-0c42-4144-933e-7d8c91ff0cb4
+		summarizeBy: none
+		sourceColumn: startTime
+
+		variation Variation
+			isDefault
+			relationship: d5fc9bdf-2457-4599-b8b5-84a1ce895a01
+			defaultHierarchy: LocalDateTable_0da5d11d-260f-477d-8b66-ddb2d1d371cc.'Hiérarchie de dates'
+
+		annotation SummarizationSetBy = Automatic
+
+	column endTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b3ebb7ac-8784-4c80-ac7e-0c16932aea71
+		summarizeBy: none
+		sourceColumn: endTime
+
+		variation Variation
+			isDefault
+			relationship: cc3b3902-93b5-46f0-86b4-2e3bd1e16400
+			defaultHierarchy: LocalDateTable_570791c1-d0d0-43b2-a2a0-ed0e6393c570.'Hiérarchie de dates'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Intervalle
+		dataType: string
+		lineageTag: d4498101-a16b-4d3a-b4ff-e4b21800af5a
+		summarizeBy: none
+		sourceColumn: Intervalle
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duree-minutes
+		dataType: double
+		lineageTag: b907aefc-d7f7-4199-9de5-18888da5d291
+		summarizeBy: sum
+		sourceColumn: Duree-minutes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition RadiationMeasures = m
+		mode: import
+		source = ```
+				let
+				    Source = Table.FromColumns({Lines.FromBinary(Web.Contents("https://openradiationextract.onrender.com/api/data/measurements?filter_last_two_years=true"), null, null)}),
+				    TRANSFORMATION_JSON = Table.TransformColumns(Source, {"Column1", Json.Document}),
+				    #"Column1 développé" = Table.ExpandRecordColumn(TRANSFORMATION_JSON, "Column1", {"apparatusId", "temperature", "value", "hitsNumber", "startTime", "endTime", "latitude", "longitude", "deviceUuid", "reportUuid", "userId", "measurementEnvironment", "rain", "storm", "flightId", "dateAndTimeOfCreation"}, {"apparatusId", "temperature", "value", "hitsNumber", "startTime", "endTime", "latitude", "longitude", "deviceUuid", "reportUuid", "userId", "measurementEnvironment", "rain", "storm", "flightId", "dateAndTimeOfCreation"}),
+				    #"Type modifié" = Table.TransformColumnTypes(#"Column1 développé",{{"apparatusId", type text}, {"temperature", Int64.Type}, {"value", type number}, {"hitsNumber", Int64.Type}, {"startTime", type datetime}, {"endTime", type datetime}, {"latitude", type number}, {"longitude", type number}, {"deviceUuid", type text}, {"reportUuid", type text}, {"userId", type text}, {"measurementEnvironment", type text}, {"rain", type text}, {"storm", type text}, {"flightId", Int64.Type}, {"dateAndTimeOfCreation", type datetime}}),
+				    #"Lignes filtrées" = Table.SelectRows(#"Type modifié", each [dateAndTimeOfCreation] <> null and [dateAndTimeOfCreation] <> "" 
+				                                                        and [startTime] <> null and [startTime] <> "" 
+				                                                        and [endTime] <> null and [endTime] <> ""),
+				    SEPARATION_HEURE_ET_DATE_MESURE = Separation_heure_date(#"Lignes filtrées", "dateAndTimeOfCreation"),
+				    AJOUT_INTERVALLE = Table.AddColumn(
+				        SEPARATION_HEURE_ET_DATE_MESURE,
+				        "Intervalle",
+				        each if [value] < 0.02 then "0-0,020" 
+				        else if [value] < 0.04 then "0,020-0,040" 
+				        else if [value] < 0.06 then "0,040-0,060" 
+				        else if [value] < 0.08 then "0,060-0,080" 
+				        else if [value] < 0.12 then "0,080-0,120" 
+				        else if [value] < 0.13 then "0,120-0,130" 
+				        else if [value] < 0.14 then "0,130-0,140" 
+				        else if [value] < 0.16 then "0,140-0,160" 
+				        else if [value] < 0.18 then "0,160-0,180" 
+				        else if [value] < 0.20 then "0,180-0,200" 
+				        else "0,200 et plus",
+				        type text
+				    ),
+				    FILTRER_START_END_TIME = Table.SelectRows(
+				        AJOUT_INTERVALLE, 
+				        each [startTime] < [endTime]
+				    ),
+				    // Ajout d'une colonne Durée (en minutes)
+				    AJOUT_DUREE = Table.AddColumn(
+				        FILTRER_START_END_TIME,
+				        "Duree-minutes",
+				        each Duration.TotalMinutes([endTime] - [startTime]),
+				        type number
+				    )
+				
+				in
+				    AJOUT_DUREE
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

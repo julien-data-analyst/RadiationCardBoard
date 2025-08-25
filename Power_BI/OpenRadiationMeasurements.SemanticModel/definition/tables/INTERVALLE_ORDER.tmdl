@@ -1,0 +1,43 @@
+table INTERVALLE_ORDER
+	lineageTag: 511df127-bfc1-43cd-96c6-0b6f69a46422
+
+	column Intervalle
+		lineageTag: 937dac0d-259d-4d22-a305-a1025bcff85c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Intervalle]
+		sortByColumn: Indice_ordre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indice_ordre
+		formatString: 0
+		lineageTag: 5b963048-a913-44a8-8e7e-60e86651b581
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Indice_ordre]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition INTERVALLE_ORDER = calculated
+		mode: import
+		source =
+				DATATABLE(
+				    "Intervalle", STRING, "Indice_ordre", INTEGER,
+				    {
+				        {"0-0,020", 1},
+				        {"0,020-0,040", 2},
+				        {"0,040-0,060", 3},
+				        {"0,060-0,080", 4},
+				        {"0,080-0,120", 5},
+				        {"0,120-0,130", 6},
+				        {"0,130-0,140", 7},
+				        {"0,140-0,160", 8},
+				        {"0,160-0,180", 9},
+				        {"0,180-0,200", 10},
+				        {"0,200 et plus", 11}
+				    }
+				)
+
+	annotation PBI_Id = 03a41d3117524406b9036a59a2208a58
+

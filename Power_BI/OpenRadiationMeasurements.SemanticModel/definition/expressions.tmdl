@@ -1,0 +1,30 @@
+expression Separation_heure_date =
+		// Fonction M pour séparer une colonne datetime en deux colonnes (Date et Time)
+		// et supprimer la colonne d'origine
+		(col as table, datetimeColumnName as text) as table =>
+		let
+		    // Ajouter colonne Date avec préfixe
+		    AddDate = Table.AddColumn(
+		        col,
+		        datetimeColumnName & "_DateOnly",
+		        each DateTime.Date(Record.Field(_, datetimeColumnName)),
+		        type date
+		    ),
+		    // Ajouter colonne Time avec préfixe
+		    AddTime = Table.AddColumn(
+		        AddDate,
+		        datetimeColumnName & "_TimeOnly",
+		        each DateTime.Time(Record.Field(_, datetimeColumnName)),
+		        type time
+		    ),
+		    // Supprimer la colonne d'origine
+		    RemoveOriginal = Table.RemoveColumns(AddTime, {datetimeColumnName})
+		in
+		    RemoveOriginal
+	lineageTag: 7ae2d74d-589a-486a-a540-5010cc981b3c
+	queryGroup: FCT_M
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Function
+
