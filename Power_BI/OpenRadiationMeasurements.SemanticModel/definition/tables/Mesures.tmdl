@@ -31,9 +31,11 @@ table Mesures
 			    REMOVEFILTERS(Datum[Annee]),
 			    // Permet de filtrer sur l'année en enlevant les filtrages externes (segment, choisir une bulle, etc)
 			    Datum[Annee] = CONVERT(YEAR(TODAY()), STRING)
+			
 			)
-		formatString: 0
 		lineageTag: 97a38347-fa85-401b-b6fa-f6214655f266
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure NB_MESURES_N-1 =
 			
@@ -80,37 +82,47 @@ table Mesures
 			VAR valeur = [NB_MESURES_N]  -- votre mesure existante
 			RETURN
 			IF(
-			    choix = "Nombre",
+			    ISBLANK(valeur),
+			    // Si la valeur est vide
+			    "Pas de valeur",
+			    // Si la valeur n'est pas vide, alors on la formatte pour qu'elle apparaisse bien
 			    IF(
-			        valeur >= 1000,
-			        FORMAT(valeur / 1000, "0.0") & " K",  -- divise par 1000 et ajoute "K"
-			        FORMAT(valeur, "0")                     -- sinon juste un entier
-			    ),
-			    -- si c'est "Mesure", afficher avec 2 décimales
-			    FORMAT(valeur, "0.000")
+			        choix = "Nombre",
+			        IF(
+			            valeur >= 1000,
+			            FORMAT(valeur / 1000, "0.0") & " K",  -- divise par 1000 et ajoute "K"
+			            FORMAT(valeur, "0")                     -- sinon juste un entier
+			        ),
+			        -- si c'est "Mesure", afficher avec 2 décimales
+			        FORMAT(valeur, "0.000") & " µSv/h"
+			    )
 			)
 			
 			```
 		lineageTag: 7521a32b-9fed-4939-8eeb-dc1152ea95e8
 
-	measure FORMAT_NB_MESURES_N-1 = ```
+	measure FORMAT_NB_MESURES_N-1 =
 			
 			VAR choix = SELECTEDVALUE(NB_MESURES[Option], "Mesure")
 			VAR valeur = [NB_MESURES_N-1]  -- votre mesure existante
 			RETURN
 			IF(
-			    choix = "Nombre",
+			    ISBLANK(valeur),
+			    // Si la valeur est nulle
+			    "Pas de valeur",
+			    // Si la valeur est non nulle, on la formate
 			    IF(
-			        valeur >= 1000000,
-			        FORMAT(valeur / 1000000, "0.0") & " M",  -- divise par 1000000 et ajoute "M"
-			        IF(valeur >= 1000, FORMAT(valeur / 1000, "0.0") & " K", -- divise par 1000 et ajoute "K"
-			        FORMAT(valeur, "0"))                     -- sinon juste un entier
-			    ),
-			    -- si c'est "Mesure", afficher avec 2 décimales
-			    FORMAT(valeur, "0.000")
+			        choix = "Nombre",
+			        IF(
+			            valeur >= 1000000,
+			            FORMAT(valeur / 1000000, "0.0") & " M",  -- divise par 1000000 et ajoute "M"
+			            IF(valeur >= 1000, FORMAT(valeur / 1000, "0.0") & " K", -- divise par 1000 et ajoute "K"
+			            FORMAT(valeur, "0"))                     -- sinon juste un entier
+			        ),
+			        -- si c'est "Mesure", afficher avec 3 décimales
+			        FORMAT(valeur, "0.000") & " µSv/h"
+			    )
 			)
-			
-			```
 		lineageTag: 7785b315-2c29-493e-905e-45991f3ab69d
 
 	measure PRCT_INTERVALLE_MESURE = ```
@@ -136,6 +148,83 @@ table Mesures
 
 	measure Q3_DUREE = CONVERT(ROUND(PERCENTILE.INC(RadiationMeasures[Duree-minutes], 0.75), 2), STRING) & " MIN"
 		lineageTag: e84daf8b-d3c2-437e-aad0-547664974572
+
+	measure Titre_annee =
+			"Observation des mesures de radiations naturelles " &
+			 CONVERT(YEAR(TODAY())-1, STRING) & "-" & CONVERT(YEAR(TODAY()), STRING)
+		lineageTag: c2e4f0d0-1b4b-4a10-a1f7-c41639497f8c
+
+	measure Titre_avion_annee =
+			"Observation des doses prises dans l'aviation " &
+			 CONVERT(YEAR(TODAY())-1, STRING) & "-" & CONVERT(YEAR(TODAY()), STRING)
+		lineageTag: 71b4f7f1-02f8-4b85-97c1-a21f4ad9a5af
+
+	measure MOYENNE_DOSE_VOL =
+			CALCULATE(
+			    CONVERT(ROUND(AVERAGE(RadiationMeasures[value]), 2), STRING) & " µSv/h",
+			    FlightInformation
+			)
+		lineageTag: 19c366dc-cdce-4ef5-856f-0f714494cac5
+
+	measure MEDIANE_DOSE_VOL =
+			CALCULATE(
+			    CONVERT(ROUND(MEDIAN(RadiationMeasures[value]), 2), STRING) & " µSv/h",
+			    FlightInformation
+			)
+		lineageTag: 55df6836-8704-44b9-aadf-068b5ea1f7fe
+
+	measure PRCT_AIRPORT_ORIGIN = ```
+			DIVIDE(
+			    COUNT(RadiationMeasures[reportUuid]), 
+			    CALCULATE(
+			        COUNT(RadiationMeasures[reportUuid]),
+			        ALL(FlightInformation[airportOrigin])
+			    )
+			)
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 70d2d9cc-87de-461b-a9ba-fcf110ba9d24
+
+	measure PRCT_AIRPORT_DESTINATION = ```
+			DIVIDE(
+			    COUNT(RadiationMeasures[reportUuid]), 
+			    CALCULATE(
+			        COUNT(RadiationMeasures[reportUuid]),
+			        ALL(FlightInformation[airportDestination])
+			    )
+			)
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 77a3e277-1a28-42b6-ab73-c72b8f952722
+
+	measure PRCT_AIRCRAFT_TYPE = ```
+			
+			DIVIDE(
+			    COUNT(RadiationMeasures[flightId]), 
+			    CALCULATE(
+			        COUNT(RadiationMeasures[flightId]),
+			        ALL(FlightInformation[aircraftType])
+			    )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 746ce78e-d9de-4174-909b-f9d42cec0a77
+
+	measure MOYENNE_DUREE_VOL = CONVERT(ROUND(AVERAGE(FlightInformation[Duree-heure]), 2), STRING) & " HEURES"
+		lineageTag: a8671cb0-fff9-4fe6-ab23-c536057850ff
+
+	measure MEDIANE_DUREE_VOL = CONVERT(ROUND(MEDIAN(FlightInformation[Duree-heure]), 2), STRING) & " HEURES"
+		lineageTag: e88d1358-51a3-4cc9-b4e1-89d631277e0d
+
+	measure DOSE_MAXIMALE_VOL = ```
+			CALCULATE(
+			    CONVERT(ROUND(MAX(RadiationMeasures[value]), 2), STRING) & " µSv/h", 
+			    FlightInformation
+			)
+			
+			```
+		lineageTag: 9d631b07-975a-4710-ba59-a8e9617b9110
 
 	column Op
 		isHidden

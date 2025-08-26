@@ -1411,6 +1411,16 @@ cultureInfo fr-FR
 			            },
 			            "Weight": 0.452
 			          }
+			        },
+			        {
+			          "Identifiant": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -1444,6 +1454,16 @@ cultureInfo fr-FR
 			            },
 			            "Weight": 0.727
 			          }
+			        },
+			        {
+			          "Numéro de vol": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -1476,6 +1496,16 @@ cultureInfo fr-FR
 			              "Agent": "Thesaurus"
 			            },
 			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "Numéro de place": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -2562,6 +2592,16 @@ cultureInfo fr-FR
 			              "Agent": "Thesaurus"
 			            },
 			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "Départ": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -3874,7 +3914,7 @@ cultureInfo fr-FR
 			          }
 			        },
 			        {
-			          "Environnement": {
+			          "Environnement de mesure": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -3884,7 +3924,7 @@ cultureInfo fr-FR
 			          }
 			        },
 			        {
-			          "Environnement de mesure": {
+			          "Environnement": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -6247,6 +6287,16 @@ cultureInfo fr-FR
 			            },
 			            "Weight": 0.9
 			          }
+			        },
+			        {
+			          "Nombre ou mesure du vol en N": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -6273,6 +6323,16 @@ cultureInfo fr-FR
 			        },
 			        {
 			          "N-1": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Nombre ou mesure du vol en N-1": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -6780,6 +6840,538 @@ cultureInfo fr-FR
 			        },
 			        {
 			          "Q3": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "flight_information.dureeheure": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "FlightInformation",
+			          "ConceptualProperty": "Duree-heure"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "duree-heure": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "duree heure": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        }
+			      ]
+			    },
+			    "mesure.titre_annee": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Mesures",
+			          "ConceptualProperty": "Titre_annee"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "titre annee": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Titre_annee": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "mesure.titre_avion_annee": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Mesures",
+			          "ConceptualProperty": "Titre_avion_annee"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "titre avion annee": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Titre_avion_annee": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "mesure.moyenne_dose_vol": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Mesures",
+			          "ConceptualProperty": "MOYENNE_DOSE_VOL"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "moyenne dose vol": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "MOYENNE_DOSE_VOL": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "Dose en moyenne": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mesure.mediane_dose_vol": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Mesures",
+			          "ConceptualProperty": "MEDIANE_DOSE_VOL"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "mediane dose vol": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "MEDIANE_DOSE_VOL": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "Dose en médiane": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mesure.prct_airport_origin": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Mesures",
+			          "ConceptualProperty": "PRCT_AIRPORT_ORIGIN"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "prct airport origin": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "PRCT_AIRPORT_ORIGIN": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "prct airport derivation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "prct airport basis": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "prct airport source": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "prct airport cause": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "prct airport beginning": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "prct airport foundation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        }
+			      ]
+			    },
+			    "mesure.prct_airport_destination": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Mesures",
+			          "ConceptualProperty": "PRCT_AIRPORT_DESTINATION"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "prct airport destination": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "PRCT_AIRPORT_DESTINATION": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "prct airport intention": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.482
+			          }
+			        },
+			        {
+			          "prct airport purpose": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        },
+			        {
+			          "prct airport end": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        },
+			        {
+			          "prct airport target": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        },
+			        {
+			          "prct airport aim": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        },
+			        {
+			          "prct airport goal": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        },
+			        {
+			          "prct airport objective": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        }
+			      ]
+			    },
+			    "mesure.prct_aircraft_type": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Mesures",
+			          "ConceptualProperty": "PRCT_AIRCRAFT_TYPE"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "prct aircraft type": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "PRCT_AIRCRAFT_TYPE": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "prct aircraft category": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "prct aircraft genre": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "prct aircraft manner": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "prct aircraft variety": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "prct aircraft brand": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "prct aircraft class": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "prct aircraft kind": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "prct aircraft style": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "prct aircraft form": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "prct aircraft grouping": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        }
+			      ]
+			    },
+			    "mesure.moyenne_duree_vol": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Mesures",
+			          "ConceptualProperty": "MOYENNE_DUREE_VOL"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "moyenne duree vol": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "MOYENNE_DUREE_VOL": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "Durée de vol en moyenne": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mesure.mediane_duree_vol": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Mesures",
+			          "ConceptualProperty": "MEDIANE_DUREE_VOL"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "mediane duree vol": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "MEDIANE_DUREE_VOL": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "Durée de vol en médiane": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mesure.dose_maximale_vol": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Mesures",
+			          "ConceptualProperty": "DOSE_MAXIMALE_VOL"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "dose maximale vol": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "DOSE_MAXIMALE_VOL": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "Dose maximale en vol": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -8412,6 +9004,369 @@ cultureInfo fr-FR
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "device_register_used_have_radiation_measures"
+			        }
+			      ]
+			    },
+			    "mesure_has_dose_maximale_vol": {
+			      "Binding": {
+			        "ConceptualEntity": "Mesures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "mesure": {
+			          "Target": {
+			            "Entity": "mesure"
+			          }
+			        },
+			        "mesure.dose_maximale_vol": {
+			          "Target": {
+			            "Entity": "mesure.dose_maximale_vol"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "mesure"
+			            },
+			            "Object": {
+			              "Role": "mesure.dose_maximale_vol"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mesures_have_dose_maximale_vol"
+			        }
+			      ]
+			    },
+			    "mesure_has_mediane_duree_vol": {
+			      "Binding": {
+			        "ConceptualEntity": "Mesures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "mesure": {
+			          "Target": {
+			            "Entity": "mesure"
+			          }
+			        },
+			        "mesure.mediane_duree_vol": {
+			          "Target": {
+			            "Entity": "mesure.mediane_duree_vol"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "mesure"
+			            },
+			            "Object": {
+			              "Role": "mesure.mediane_duree_vol"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mesures_have_mediane_duree_vol"
+			        }
+			      ]
+			    },
+			    "mesure_has_moyenne_duree_vol": {
+			      "Binding": {
+			        "ConceptualEntity": "Mesures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "mesure": {
+			          "Target": {
+			            "Entity": "mesure"
+			          }
+			        },
+			        "mesure.moyenne_duree_vol": {
+			          "Target": {
+			            "Entity": "mesure.moyenne_duree_vol"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "mesure"
+			            },
+			            "Object": {
+			              "Role": "mesure.moyenne_duree_vol"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mesures_have_moyenne_duree_vol"
+			        }
+			      ]
+			    },
+			    "radiation_measure_has_mesure_prct_aircraft_type": {
+			      "Binding": {
+			        "ConceptualEntity": "RadiationMeasures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "radiation_measure": {
+			          "Target": {
+			            "Entity": "radiation_measure"
+			          }
+			        },
+			        "mesure.prct_aircraft_type": {
+			          "Target": {
+			            "Entity": "mesure.prct_aircraft_type"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "radiation_measure"
+			            },
+			            "Object": {
+			              "Role": "mesure.prct_aircraft_type"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "radiation_measures_have_prct_aircraft_type"
+			        }
+			      ]
+			    },
+			    "radiation_measure_has_mesure_prct_airport_destination": {
+			      "Binding": {
+			        "ConceptualEntity": "RadiationMeasures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "radiation_measure": {
+			          "Target": {
+			            "Entity": "radiation_measure"
+			          }
+			        },
+			        "mesure.prct_airport_destination": {
+			          "Target": {
+			            "Entity": "mesure.prct_airport_destination"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "radiation_measure"
+			            },
+			            "Object": {
+			              "Role": "mesure.prct_airport_destination"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "radiation_measures_have_prct_airport_destination"
+			        }
+			      ]
+			    },
+			    "radiation_measure_has_mesure_prct_airport_origin": {
+			      "Binding": {
+			        "ConceptualEntity": "RadiationMeasures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "radiation_measure": {
+			          "Target": {
+			            "Entity": "radiation_measure"
+			          }
+			        },
+			        "mesure.prct_airport_origin": {
+			          "Target": {
+			            "Entity": "mesure.prct_airport_origin"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "radiation_measure"
+			            },
+			            "Object": {
+			              "Role": "mesure.prct_airport_origin"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "radiation_measures_have_prct_airport_origin"
+			        }
+			      ]
+			    },
+			    "mesure_has_mediane_dose_vol": {
+			      "Binding": {
+			        "ConceptualEntity": "Mesures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "mesure": {
+			          "Target": {
+			            "Entity": "mesure"
+			          }
+			        },
+			        "mesure.mediane_dose_vol": {
+			          "Target": {
+			            "Entity": "mesure.mediane_dose_vol"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "mesure"
+			            },
+			            "Object": {
+			              "Role": "mesure.mediane_dose_vol"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mesures_have_mediane_dose_vol"
+			        }
+			      ]
+			    },
+			    "mesure_has_moyenne_dose_vol": {
+			      "Binding": {
+			        "ConceptualEntity": "Mesures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "mesure": {
+			          "Target": {
+			            "Entity": "mesure"
+			          }
+			        },
+			        "mesure.moyenne_dose_vol": {
+			          "Target": {
+			            "Entity": "mesure.moyenne_dose_vol"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "mesure"
+			            },
+			            "Object": {
+			              "Role": "mesure.moyenne_dose_vol"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mesures_have_moyenne_dose_vol"
+			        }
+			      ]
+			    },
+			    "mesure_has_titre_avion_annee": {
+			      "Binding": {
+			        "ConceptualEntity": "Mesures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "mesure": {
+			          "Target": {
+			            "Entity": "mesure"
+			          }
+			        },
+			        "mesure.titre_avion_annee": {
+			          "Target": {
+			            "Entity": "mesure.titre_avion_annee"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "mesure"
+			            },
+			            "Object": {
+			              "Role": "mesure.titre_avion_annee"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mesures_have_titre_avion_annee"
+			        }
+			      ]
+			    },
+			    "mesure_has_titre_annee": {
+			      "Binding": {
+			        "ConceptualEntity": "Mesures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "mesure": {
+			          "Target": {
+			            "Entity": "mesure"
+			          }
+			        },
+			        "mesure.titre_annee": {
+			          "Target": {
+			            "Entity": "mesure.titre_annee"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "mesure"
+			            },
+			            "Object": {
+			              "Role": "mesure.titre_annee"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mesures_have_titre_annee"
+			        }
+			      ]
+			    },
+			    "flight_information_has_dureeheure": {
+			      "Binding": {
+			        "ConceptualEntity": "FlightInformation"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "flight_information": {
+			          "Target": {
+			            "Entity": "flight_information"
+			          }
+			        },
+			        "flight_information.dureeheure": {
+			          "Target": {
+			            "Entity": "flight_information.dureeheure"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "flight_information"
+			            },
+			            "Object": {
+			              "Role": "flight_information.dureeheure"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "flight_information_have_dureeheures"
 			        }
 			      ]
 			    },
@@ -10491,6 +11446,51 @@ cultureInfo fr-FR
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "apparatus_measure_used_have_apparatus_ids"
+			        }
+			      ]
+			    },
+			    "flight_information_in_seat_number": {
+			      "Binding": {
+			        "ConceptualEntity": "FlightInformation"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "flight_information": {
+			          "Target": {
+			            "Entity": "flight_information"
+			          }
+			        },
+			        "flight_information.seat_number": {
+			          "Target": {
+			            "Entity": "flight_information.seat_number"
+			          }
+			        }
+			      },
+			      "SemanticSlots": {
+			        "Where": {
+			          "Role": "flight_information.seat_number"
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Preposition": {
+			            "Subject": {
+			              "Role": "flight_information"
+			            },
+			            "Prepositions": [
+			              {
+			                "in": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "flight_information.seat_number"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "flight_information_are_in_seat_numbers"
 			        }
 			      ]
 			    },

@@ -87,6 +87,16 @@ table FlightInformation
 
 		annotation SummarizationSetBy = Automatic
 
+	column Duree-heure
+		dataType: double
+		lineageTag: c3206148-e64d-431b-8008-3346ea02d76f
+		summarizeBy: sum
+		sourceColumn: Duree-heure
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition FlightInformation = m
 		mode: import
 		source =
@@ -94,9 +104,25 @@ table FlightInformation
 				    Source = Table.FromColumns({Lines.FromBinary(Web.Contents("https://openradiationextract.onrender.com/api/data/flight"), null, null)}),
 				    #"Colonne transformée" = Table.TransformColumns(Source, {"Column1", Json.Document}),
 				    #"Column1 développé" = Table.ExpandRecordColumn(#"Colonne transformée", "Column1", {"flightId", "flightNumber", "seatNumber", "windowSeat", "departureTime", "arrivalTime", "airportOrigin", "airportDestination", "aircraftType"}, {"flightId", "flightNumber", "seatNumber", "windowSeat", "departureTime", "arrivalTime", "airportOrigin", "airportDestination", "aircraftType"}),
-				    #"Type modifié" = Table.TransformColumnTypes(#"Column1 développé",{{"flightId", Int64.Type}, {"flightNumber", type text}, {"seatNumber", type text}, {"windowSeat", Int64.Type}, {"departureTime", type datetime}, {"arrivalTime", type datetime}, {"airportOrigin", type text}, {"airportDestination", type text}, {"aircraftType", type text}})
+				    #"Type modifié" = Table.TransformColumnTypes(#"Column1 développé",{{"flightId", Int64.Type}, {"flightNumber", type text}, {"seatNumber", type text}, {"windowSeat", Int64.Type}, {"departureTime", type datetime}, {"arrivalTime", type datetime}, {"airportOrigin", type text}, {"airportDestination", type text}, {"aircraftType", type text}}),
+				    // Filtrer la table pour ne garder que les lignes qui ont une valeur commune entre les deux tables
+				    TABLE_FILTREE = ComparerCols(
+				        #"Type modifié",       // Table principale
+				        "flightId",       // Colonne de la table principale
+				        RadiationMeasures,       // Table à regarder
+				        "flightId"        // Colonne de la table à regarder
+				    ),
+				    // Ajout d'une colonne Durée (en jours)
+				    AJOUT_DUREE_HEURE = Table.AddColumn(
+				        TABLE_FILTREE,
+				        "Duree-heure",
+				        each Duration.TotalHours([arrivalTime] - [departureTime]),
+				        type number
+				    ),
+				    #"Valeur remplacée" = Table.ReplaceValue(AJOUT_DUREE_HEURE,null,0,Replacer.ReplaceValue,{"windowSeat"}),
+				    #"Type modifié1" = Table.TransformColumnTypes(#"Valeur remplacée",{{"windowSeat", Int64.Type}})
 				in
-				    #"Type modifié"
+				    #"Type modifié1"
 
 	annotation PBI_NavigationStepName = Navigation
 

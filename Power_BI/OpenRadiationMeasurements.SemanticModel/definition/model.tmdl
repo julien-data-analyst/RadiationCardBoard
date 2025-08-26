@@ -11,7 +11,7 @@ queryGroup FCT_M
 
 	annotation PBI_QueryGroupOrder = 0
 
-annotation PBI_QueryOrder = ["ApparatusMeasuresUsed","DeviceRegisterUsed","FlightInformation","RadiationMeasures","Separation_heure_date"]
+annotation PBI_QueryOrder = ["ApparatusMeasuresUsed","DeviceRegisterUsed","FlightInformation","RadiationMeasures","Separation_heure_date","ComparerCols"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 

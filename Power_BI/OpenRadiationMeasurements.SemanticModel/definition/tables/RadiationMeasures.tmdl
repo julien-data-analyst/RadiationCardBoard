@@ -193,10 +193,8 @@ table RadiationMeasures
 				    TRANSFORMATION_JSON = Table.TransformColumns(Source, {"Column1", Json.Document}),
 				    #"Column1 développé" = Table.ExpandRecordColumn(TRANSFORMATION_JSON, "Column1", {"apparatusId", "temperature", "value", "hitsNumber", "startTime", "endTime", "latitude", "longitude", "deviceUuid", "reportUuid", "userId", "measurementEnvironment", "rain", "storm", "flightId", "dateAndTimeOfCreation"}, {"apparatusId", "temperature", "value", "hitsNumber", "startTime", "endTime", "latitude", "longitude", "deviceUuid", "reportUuid", "userId", "measurementEnvironment", "rain", "storm", "flightId", "dateAndTimeOfCreation"}),
 				    #"Type modifié" = Table.TransformColumnTypes(#"Column1 développé",{{"apparatusId", type text}, {"temperature", Int64.Type}, {"value", type number}, {"hitsNumber", Int64.Type}, {"startTime", type datetime}, {"endTime", type datetime}, {"latitude", type number}, {"longitude", type number}, {"deviceUuid", type text}, {"reportUuid", type text}, {"userId", type text}, {"measurementEnvironment", type text}, {"rain", type text}, {"storm", type text}, {"flightId", Int64.Type}, {"dateAndTimeOfCreation", type datetime}}),
-				    #"Lignes filtrées" = Table.SelectRows(#"Type modifié", each [dateAndTimeOfCreation] <> null and [dateAndTimeOfCreation] <> "" 
-				                                                        and [startTime] <> null and [startTime] <> "" 
-				                                                        and [endTime] <> null and [endTime] <> ""),
-				    SEPARATION_HEURE_ET_DATE_MESURE = Separation_heure_date(#"Lignes filtrées", "dateAndTimeOfCreation"),
+				    FILTRE_DATE_TIME_CREATION_VIDE = Table.SelectRows(#"Type modifié", each [dateAndTimeOfCreation] <> null and [dateAndTimeOfCreation] <> ""),
+				    SEPARATION_HEURE_ET_DATE_MESURE = Separation_heure_date(FILTRE_DATE_TIME_CREATION_VIDE, "dateAndTimeOfCreation"),
 				    AJOUT_INTERVALLE = Table.AddColumn(
 				        SEPARATION_HEURE_ET_DATE_MESURE,
 				        "Intervalle",
@@ -213,8 +211,9 @@ table RadiationMeasures
 				        else "0,200 et plus",
 				        type text
 				    ),
-				    FILTRER_START_END_TIME = Table.SelectRows(
-				        AJOUT_INTERVALLE, 
+				    FILTRAGE_START_END_NON_VIDE = Table.SelectRows(AJOUT_INTERVALLE, each [startTime] <> null and [startTime] <> "" and [endTime] <> null and [endTime] <> ""),
+				        FILTRER_START_END_TIME = Table.SelectRows(
+				        FILTRAGE_START_END_NON_VIDE, 
 				        each [startTime] < [endTime]
 				    ),
 				    // Ajout d'une colonne Durée (en minutes)
@@ -224,7 +223,6 @@ table RadiationMeasures
 				        each Duration.TotalMinutes([endTime] - [startTime]),
 				        type number
 				    )
-				
 				in
 				    AJOUT_DUREE
 				```

@@ -28,3 +28,38 @@ expression Separation_heure_date =
 
 	annotation PBI_ResultType = Function
 
+expression ComparerCols = ```
+		/****************************
+		Fct : Permet de filtrer la table selon la comparaison d'une colonne commune entre les deux tables sans en faire la jointure.
+		Plus optimisé que le List.Contains qui demande beaucoup de mémoire dans le cas de très grandes lignes.
+		
+		Arguments :
+		- TablePrincipale : La table utilisée pour filtrer
+		- ColonnePrincipale : La colonne de TablePrincipale à comparer
+		- TableARegarder : La table utilisée pour comparer avec la TablePrincipale
+		- ColonneARegarder : La colonne de TableARegarder à utiliser
+		*****************************/
+		(TablePrincipale as table, ColonnePrincipale as text, TableARegarder as table, ColonneARegarder as text) as table =>
+		let
+		    // Lignes unique sur la colonne à regarder
+		    TableARegarderDistinct = Table.Distinct(TableARegarder, {ColonneARegarder}),
+		
+		    // Effectue la jointure pour filtrer
+		    Jointure = Table.NestedJoin(
+		        TablePrincipale, {ColonnePrincipale}, 
+		        TableARegarderDistinct, {ColonneARegarder}, 
+		        "TempJoin", 
+		        JoinKind.Inner
+		    ),
+		    // Supprime la colonne temporaire issue de la jointure
+		    Resultat = Table.RemoveColumns(Jointure, {"TempJoin"})
+		in
+		    Resultat
+		```
+	lineageTag: 9a709a8c-47ed-4d3c-99a0-2328521114b4
+	queryGroup: FCT_M
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Function
+

@@ -40,9 +40,16 @@ table DeviceRegisterUsed
 				    Source = Table.FromColumns({Lines.FromBinary(Web.Contents("https://openradiationextract.onrender.com/api/data/devices"), null, null)}),
 				    #"Colonne transformée" = Table.TransformColumns(Source, {"Column1", Json.Document}),
 				    #"Column1 développé" = Table.ExpandRecordColumn(#"Colonne transformée", "Column1", {"deviceUuid", "devicePlatform", "deviceVersion", "deviceModel"}, {"deviceUuid", "devicePlatform", "deviceVersion", "deviceModel"}),
-				    #"Type modifié" = Table.TransformColumnTypes(#"Column1 développé",{{"deviceUuid", type text}, {"devicePlatform", type text}, {"deviceVersion", type text}, {"deviceModel", type text}})
+				    #"Type modifié" = Table.TransformColumnTypes(#"Column1 développé",{{"deviceUuid", type text}, {"devicePlatform", type text}, {"deviceVersion", type text}, {"deviceModel", type text}}),
+				    // Filtrer la table pour ne garder que les lignes qui ont une valeur commune entre les deux tables
+				    TABLE_FILTREE = ComparerCols(
+				        #"Type modifié",       // Table principale
+				        "deviceUuid",       // Colonne de la table principale
+				        RadiationMeasures,       // Table à regarder
+				        "deviceUuid"        // Colonne de la table à regarder
+				    )
 				in
-				    #"Type modifié"
+				    TABLE_FILTREE
 
 	annotation PBI_NavigationStepName = Navigation
 
