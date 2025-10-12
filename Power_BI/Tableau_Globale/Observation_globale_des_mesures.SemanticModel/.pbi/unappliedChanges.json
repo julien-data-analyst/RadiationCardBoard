@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "conceptualSchemaSettings": {},
+  "queries": [
+    {
+      "name": "OpenRadiationGlobale",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "    Source = Table.FromColumns({Lines.FromBinary(Web.Contents(\"https://openradiationextract.onrender.com/api/data/openradiation\"), null, null)}),",
+        "    #\"Colonne transformée\" = Table.TransformColumns(Source, {\"Column1\", Json.Document}),",
+        "    #\"Column1 développé\" = Table.ExpandRecordColumn(#\"Colonne transformée\", \"Column1\", {\"apparatusId\", \"apparatusVersion\", \"apparatusSensorType\", \"apparatusTubeType\", \"temperature\", \"value\", \"hitsNumber\", \"calibrationFunction\", \"startTime\", \"endTime\", \"latitude\", \"longitude\", \"accuracy\", \"altitude\", \"altitudeAccuracy\", \"endLatitude\", \"endLongitude\", \"endAccuracy\", \"endAltitude\", \"endAltitudeAccuracy\", \"deviceUuid\", \"devicePlatform\", \"deviceVersion\", \"deviceModel\", \"reportUuid\", \"manualReporting\", \"organisationReporting\", \"description\", \"measurementHeight\", \"enclosedObject\", \"userId\", \"measurementEnvironment\", \"rain\", \"flightNumber\", \"seatNumber\", \"windowSeat\", \"storm\", \"flightId\", \"refinedLatitude\", \"refinedLongitude\", \"refinedAltitude\", \"refinedEndLatitude\", \"refinedEndLongitude\", \"refinedEndAltitude\", \"departureTime\", \"arrivalTime\", \"airportOrigin\", \"airportDestination\", \"aircraftType\", \"firstLatitude\", \"firstLongitude\", \"midLatitude\", \"midLongitude\", \"lastLatitude\", \"lastLongitude\", \"dateAndTimeOfCreation\", \"qualification\", \"qualificationVotesNumber\", \"reliability\", \"atypical\"}, {\"apparatusId\", \"apparatusVersion\", \"apparatusSensorType\", \"apparatusTubeType\", \"temperature\", \"value\", \"hitsNumber\", \"calibrationFunction\", \"startTime\", \"endTime\", \"latitude\", \"longitude\", \"accuracy\", \"altitude\", \"altitudeAccuracy\", \"endLatitude\", \"endLongitude\", \"endAccuracy\", \"endAltitude\", \"endAltitudeAccuracy\", \"deviceUuid\", \"devicePlatform\", \"deviceVersion\", \"deviceModel\", \"reportUuid\", \"manualReporting\", \"organisationReporting\", \"description\", \"measurementHeight\", \"enclosedObject\", \"userId\", \"measurementEnvironment\", \"rain\", \"flightNumber\", \"seatNumber\", \"windowSeat\", \"storm\", \"flightId\", \"refinedLatitude\", \"refinedLongitude\", \"refinedAltitude\", \"refinedEndLatitude\", \"refinedEndLongitude\", \"refinedEndAltitude\", \"departureTime\", \"arrivalTime\", \"airportOrigin\", \"airportDestination\", \"aircraftType\", \"firstLatitude\", \"firstLongitude\", \"midLatitude\", \"midLongitude\", \"lastLatitude\", \"lastLongitude\", \"dateAndTimeOfCreation\", \"qualification\", \"qualificationVotesNumber\", \"reliability\", \"atypical\"}),",
+        "    #\"Autres colonnes supprimées\" = Table.SelectColumns(#\"Column1 développé\",{\"value\", \"startTime\", \"endTime\", \"measurementEnvironment\", \"dateAndTimeOfCreation\", \"atypical\"}),",
+        "    #\"Type modifié\" = Table.TransformColumnTypes(#\"Autres colonnes supprimées\",{{\"startTime\", type datetime}, {\"endTime\", type datetime}, {\"value\", type number}, {\"measurementEnvironment\", type text}, {\"dateAndTimeOfCreation\", type datetime}, {\"atypical\", type text}}),",
+        "    #\"Personnalisée ajoutée\" = Table.AddColumn(#\"Type modifié\", \"duree\", each if [startTime] <> null and [endTime] <> null then ",
+        "    Duration.TotalMinutes([endTime] - [startTime]) ",
+        "else ",
+        "    null),",
+        "    #\"Colonnes supprimées\" = Table.RemoveColumns(#\"Personnalisée ajoutée\",{\"startTime\", \"endTime\"}),",
+        "    #\"Personnalisée ajoutée1\" = Table.AddColumn(#\"Colonnes supprimées\", \"annee\", each Date.Year([dateAndTimeOfCreation])),",
+        "    #\"Personnalisée ajoutée2\" = Table.AddColumn(#\"Personnalisée ajoutée1\", \"mois\", each Date.Month([dateAndTimeOfCreation])),",
+        "    #\"Type modifié1\" = Table.TransformColumnTypes(#\"Personnalisée ajoutée2\",{{\"duree\", type number}, {\"annee\", type text}, {\"mois\", type text}}),",
+        "    #\"Colonnes supprimées1\" = Table.RemoveColumns(#\"Type modifié1\",{\"dateAndTimeOfCreation\"}),",
+        "    #\"Colonnes permutées\" = Table.ReorderColumns(#\"Colonnes supprimées1\",{\"measurementEnvironment\", \"annee\", \"mois\", \"atypical\", \"value\", \"duree\"}),",
+        "    #\"Lignes groupées\" = Table.Group(#\"Colonnes permutées\", {\"measurementEnvironment\", \"annee\", \"mois\"}, {{\"Moyenne_dose\", each List.Average([value]), type nullable number}, {\"Moyenne_duree\", each List.Average([duree]), type nullable number}, {\"Mediane_dose\", each List.Median([value]), type nullable number}, {\"Mediane_duree\", each List.Median([value]), type nullable number}, {\"Nombre_mesures\", each Table.RowCount(_), Int64.Type}})",
+        "in",
+        "    #\"Lignes groupées\""
+      ],
+      "isDirectQuery": false,
+      "resultType": "Exception"
+    }
+  ],
+  "queryGroups": [],
+  "culture": "fr-FR",
+  "firewallEnabled": true
+}

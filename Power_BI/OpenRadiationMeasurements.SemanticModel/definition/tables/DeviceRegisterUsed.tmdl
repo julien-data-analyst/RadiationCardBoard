@@ -41,11 +41,12 @@ table DeviceRegisterUsed
 				    #"Colonne transformée" = Table.TransformColumns(Source, {"Column1", Json.Document}),
 				    #"Column1 développé" = Table.ExpandRecordColumn(#"Colonne transformée", "Column1", {"deviceUuid", "devicePlatform", "deviceVersion", "deviceModel"}, {"deviceUuid", "devicePlatform", "deviceVersion", "deviceModel"}),
 				    #"Type modifié" = Table.TransformColumnTypes(#"Column1 développé",{{"deviceUuid", type text}, {"devicePlatform", type text}, {"deviceVersion", type text}, {"deviceModel", type text}}),
+				    SourceRadiation = RadiationMeasures, // J'indiquer que j'utilise la table source RadiationMeasures explicitement
 				    // Filtrer la table pour ne garder que les lignes qui ont une valeur commune entre les deux tables
 				    TABLE_FILTREE = ComparerCols(
 				        #"Type modifié",       // Table principale
 				        "deviceUuid",       // Colonne de la table principale
-				        RadiationMeasures,       // Table à regarder
+				        SourceRadiation,       // Table à regarder
 				        "deviceUuid"        // Colonne de la table à regarder
 				    )
 				in
@@ -53,5 +54,5 @@ table DeviceRegisterUsed
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Table
+	annotation PBI_ResultType = Exception
 

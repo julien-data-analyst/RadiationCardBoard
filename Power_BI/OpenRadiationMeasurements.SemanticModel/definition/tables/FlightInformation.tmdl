@@ -105,11 +105,12 @@ table FlightInformation
 				    #"Colonne transformée" = Table.TransformColumns(Source, {"Column1", Json.Document}),
 				    #"Column1 développé" = Table.ExpandRecordColumn(#"Colonne transformée", "Column1", {"flightId", "flightNumber", "seatNumber", "windowSeat", "departureTime", "arrivalTime", "airportOrigin", "airportDestination", "aircraftType"}, {"flightId", "flightNumber", "seatNumber", "windowSeat", "departureTime", "arrivalTime", "airportOrigin", "airportDestination", "aircraftType"}),
 				    #"Type modifié" = Table.TransformColumnTypes(#"Column1 développé",{{"flightId", Int64.Type}, {"flightNumber", type text}, {"seatNumber", type text}, {"windowSeat", Int64.Type}, {"departureTime", type datetime}, {"arrivalTime", type datetime}, {"airportOrigin", type text}, {"airportDestination", type text}, {"aircraftType", type text}}),
+				    SourceRadiation = RadiationMeasures, // J'indiquer que j'utilise la table source RadiationMeasures explicitement
 				    // Filtrer la table pour ne garder que les lignes qui ont une valeur commune entre les deux tables
 				    TABLE_FILTREE = ComparerCols(
 				        #"Type modifié",       // Table principale
 				        "flightId",       // Colonne de la table principale
-				        RadiationMeasures,       // Table à regarder
+				        SourceRadiation,       // Table à regarder
 				        "flightId"        // Colonne de la table à regarder
 				    ),
 				    // Ajout d'une colonne Durée (en jours)

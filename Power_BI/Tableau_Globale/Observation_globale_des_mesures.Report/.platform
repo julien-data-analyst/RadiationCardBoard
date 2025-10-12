@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Observation_globale_des_mesures"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9d2038c9-e0e5-49e9-9679-554396540950"
+  }
+}

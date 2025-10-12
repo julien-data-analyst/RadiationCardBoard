@@ -226,6 +226,40 @@ table Mesures
 			```
 		lineageTag: 9d631b07-975a-4710-ba59-a8e9617b9110
 
+	measure Titre_appareil_annee =
+			"Appareils d'enregistrement / de mesures les plus utilisés " &
+			 CONVERT(YEAR(TODAY())-1, STRING) & "-" & CONVERT(YEAR(TODAY()), STRING)
+		lineageTag: 57dadf77-6a27-4d25-b0a5-061357dfa65f
+
+	measure PRCT_DEVICE_UNIQUE = ```
+			DIVIDE(
+			    COUNT(RadiationMeasures[reportUuid]), 
+			    CALCULATE(
+			        COUNT(RadiationMeasures[reportUuid]),
+			        ALL(DeviceRegisterUsed[deviceUuid])
+			    )
+			)
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 5a03a284-da03-4204-882c-3d0ca6944498
+
+	measure PRCT_APPARATUS_UNIQUE = ```
+			DIVIDE(
+			    COUNT(RadiationMeasures[reportUuid]), 
+			    CALCULATE(
+			        COUNT(RadiationMeasures[reportUuid]),
+			        ALL(ApparatusMeasuresUsed[apparatusId])
+			    )
+			)
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 31630005-5899-4156-a3a4-7809d201f97f
+
+	measure Titre_Modelisation_annee =
+			"Modélisation et prédiction des doses par environnement " &
+			 CONVERT(YEAR(TODAY())-1, STRING) & "-" & CONVERT(YEAR(TODAY()), STRING)
+		lineageTag: b1d46696-1754-4fd0-a0b0-bfb7ca351bf7
+
 	column Op
 		isHidden
 		lineageTag: 022fdb49-9efb-472b-b5a2-6eaa22ba7b4a

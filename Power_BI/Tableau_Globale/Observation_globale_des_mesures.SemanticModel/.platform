@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Observation_globale_des_mesures"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a6280843-9479-4492-a652-ddb3f5ae49ea"
+  }
+}
